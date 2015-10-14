@@ -1,0 +1,72 @@
+# ---------------------------------------------------------------------- #
+# Script generated with: DeZign for Databases v6.2.1                     #
+# Target DBMS:           MySQL 5                                         #
+# Project file:          sanpatras.dez                                   #
+# Project name:                                                          #
+# Author:                                                                #
+# Script type:           Database drop script                            #
+# Created on:            2015-10-13 23:55                                #
+# ---------------------------------------------------------------------- #
+
+
+# ---------------------------------------------------------------------- #
+# Drop foreign key constraints                                           #
+# ---------------------------------------------------------------------- #
+
+ALTER TABLE `ediciones` DROP FOREIGN KEY `empleados_ediciones`;
+
+ALTER TABLE `ediciones` DROP FOREIGN KEY `cursos_ediciones`;
+
+ALTER TABLE `empleados` DROP FOREIGN KEY `docente_empleados`;
+
+# ---------------------------------------------------------------------- #
+# Drop table "ediciones"                                                 #
+# ---------------------------------------------------------------------- #
+
+# Remove autoinc for PK drop #
+
+ALTER TABLE `ediciones` MODIFY `id_lugar` INTEGER(5) NOT NULL;
+
+# Drop constraints #
+
+ALTER TABLE `ediciones` DROP PRIMARY KEY;
+
+# Drop table #
+
+DROP TABLE `ediciones`;
+
+# ---------------------------------------------------------------------- #
+# Drop table "empleados"                                                 #
+# ---------------------------------------------------------------------- #
+
+# Drop constraints #
+
+ALTER TABLE `empleados` DROP PRIMARY KEY;
+
+# Drop table #
+
+DROP TABLE `empleados`;
+
+# ---------------------------------------------------------------------- #
+# Drop table "docente"                                                   #
+# ---------------------------------------------------------------------- #
+
+# Drop constraints #
+
+ALTER TABLE `docente` DROP PRIMARY KEY;
+
+# Drop table #
+
+DROP TABLE `docente`;
+
+# ---------------------------------------------------------------------- #
+# Drop table "cursos"                                                    #
+# ---------------------------------------------------------------------- #
+
+# Drop constraints #
+
+ALTER TABLE `cursos` DROP PRIMARY KEY;
+
+# Drop table #
+
+DROP TABLE `cursos`;

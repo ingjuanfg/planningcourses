@@ -1,0 +1,86 @@
+# ---------------------------------------------------------------------- #
+# Script generated with: DeZign for Databases v6.2.1                     #
+# Target DBMS:           MySQL 5                                         #
+# Project file:          sanpatras.dez                                   #
+# Project name:                                                          #
+# Author:                                                                #
+# Script type:           Database creation script                        #
+# Created on:            2015-10-13 23:55                                #
+# ---------------------------------------------------------------------- #
+
+
+# ---------------------------------------------------------------------- #
+# Tables                                                                 #
+# ---------------------------------------------------------------------- #
+
+# ---------------------------------------------------------------------- #
+# Add table "cursos"                                                     #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE `cursos` (
+    `cod_curso` VARCHAR(20) NOT NULL,
+    `nom_curso` VARCHAR(40),
+    `desc_curso` VARCHAR(100),
+    `num_horas` INTEGER(5),
+    `costo_curso` VARCHAR(40),
+    CONSTRAINT `PK_cursos` PRIMARY KEY (`cod_curso`)
+);
+
+# ---------------------------------------------------------------------- #
+# Add table "ediciones"                                                  #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE `ediciones` (
+    `id_lugar` INTEGER(5) NOT NULL AUTO_INCREMENT,
+    `lugar` VARCHAR(40),
+    `fecha` VARCHAR(40),
+    `horario` VARCHAR(40),
+    `cod_emple` VARCHAR(40),
+    `cod_curso` VARCHAR(20),
+    CONSTRAINT `PK_ediciones` PRIMARY KEY (`id_lugar`)
+);
+
+# ---------------------------------------------------------------------- #
+# Add table "empleados"                                                  #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE `empleados` (
+    `cod_emple` VARCHAR(40) NOT NULL,
+    `nombre` VARCHAR(40),
+    `apellido` VARCHAR(40),
+    `direccion` VARCHAR(40),
+    `telefono` VARCHAR(40),
+    `dni` VARCHAR(40),
+    `fech_nac` VARCHAR(40),
+    `nacionalidad` VARCHAR(40),
+    `sexo` VARCHAR(2),
+    `firma` VARCHAR(40),
+    `salario` VARCHAR(40),
+    `capacitado` BOOL,
+    `id_docente` VARCHAR(40),
+    CONSTRAINT `PK_empleados` PRIMARY KEY (`cod_emple`)
+);
+
+# ---------------------------------------------------------------------- #
+# Add table "docente"                                                    #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE `docente` (
+    `id_docente` VARCHAR(40) NOT NULL,
+    `puesto` VARCHAR(40),
+    `capacitado` INTEGER(2),
+    CONSTRAINT `PK_docente` PRIMARY KEY (`id_docente`)
+);
+
+# ---------------------------------------------------------------------- #
+# Foreign key constraints                                                #
+# ---------------------------------------------------------------------- #
+
+ALTER TABLE `ediciones` ADD CONSTRAINT `empleados_ediciones` 
+    FOREIGN KEY (`cod_emple`) REFERENCES `empleados` (`cod_emple`);
+
+ALTER TABLE `ediciones` ADD CONSTRAINT `cursos_ediciones` 
+    FOREIGN KEY (`cod_curso`) REFERENCES `cursos` (`cod_curso`);
+
+ALTER TABLE `empleados` ADD CONSTRAINT `docente_empleados` 
+    FOREIGN KEY (`id_docente`) REFERENCES `docente` (`id_docente`);

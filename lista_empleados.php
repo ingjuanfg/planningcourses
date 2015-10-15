@@ -27,6 +27,7 @@ $resultado=mysqli_query($link, $query);
 <tr><td>Codigo del Empleado</td>
 	<td>DNI  y/o Cedula del Empleado</td>
 	<td>Nombre del Empleado</td>
+	<td>Cargo del Empleado</td>
 	<td>Opciones</td>
 </tr>
 <?php
@@ -38,6 +39,7 @@ while($extraido= mysqli_fetch_array($resultado))
 	<td><?php echo $extraido['cod_emple']?></td>
 	<td><?php echo $extraido['dni']?></td>
 	<td><?php echo $extraido['nombre']?></td>
+	<td><?php echo $extraido['cargo']?></td>
 	<td>
 	<input type="button" name="bedit" value="Modificar" Onclick="window.location.href = 'editar_empleados.php?cod_emple=<?php echo $extraido['cod_emple']?>'">
 	<input type="button" name="bborrar" value="Borrar" Onclick="confirmBorrar(<?php echo $extraido['cod_emple'] ?>)">

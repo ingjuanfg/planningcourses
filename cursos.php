@@ -14,9 +14,7 @@ $errores["desc_curso"] = "";
 $errores["num_horas"] = "";
 $errores["costo_curso"] = "";
 $errores["prerequisito"] = "";
-
-
-$errores["puesto_docente"] = "";
+$errores["horario"] = "";
 $error = false;
 
 if (isset($_POST['insertar']))
@@ -28,6 +26,7 @@ if (isset($_POST['insertar']))
     $num_horas = $_POST['num_horas'];
     $costo_curso = $_POST['costo_curso'];
     $prerequisito = $_POST['prerequisito'];
+    $horario = $_POST['horario'];
 
    // Comprobar errores
 
@@ -86,6 +85,15 @@ if (isset($_POST['insertar']))
       else
          $errores["prerequisito"] = "";
 
+      //horario
+      if (empty($horario))
+      {
+         $errores["horario"] = "Se requiere el Horario";
+         $error = true;
+      }
+      else
+         $errores["horario"] = "";
+
          }
 
 
@@ -106,7 +114,7 @@ if (isset($_POST['insertar']))
          or die ("<p><center> <b>No se pudo insertar la informacion del curso a la base de datos, intentelo de nuevo.</center></b></p><br>
          <A HREF 'cursos.php'>Volver</A>");
 
-         echo ("<P>[ <A HREF='cursos.php'> Registrar otro Empleado</A> ]</P>\n");
+         echo ("<P>[ <A HREF='cursos.php'> Registrar otro Curso</A> ]</P>\n");
     }
 else
 {
@@ -205,6 +213,24 @@ while($extraido=mysqli_fetch_array($result)){
 ?>
 </select>
 </P>
+
+<P><LABEL>Horario a Asignar el Curso:</LABEL>
+<select name="horario">
+   
+<?php 
+require('config.php');
+
+$query="SELECT * FROM ediciones";
+$result=mysqli_query($link, $query);
+
+while($extraido=mysqli_fetch_array($result)){
+
+   echo"<option value ='$extraido[id_lugar]'> $extraido[lugar] - $extraido[horario] - $extraido[fecha] </option>";
+}
+?>
+</select>
+</P>
+
 
 <P><INPUT TYPE="submit" NAME="insertar" VALUE="Registrar Curso"></P>
 

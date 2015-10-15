@@ -153,7 +153,14 @@ if (isset($_POST['insertar']))
          }
          else
             $errores["salario"] = "";
-      
+
+      if (empty($capac_emp))
+            {
+               $errores["puesto_docente"] = "Se requiere el Cargo";
+               $error = true;
+            }
+            else
+               $errores["puesto_docente"] = "";
          }
 
 
@@ -166,7 +173,7 @@ if (isset($_POST['insertar']))
 
          $query = "INSERT INTO usuarios(cod_usuario, contrasena, puesto) VALUES ('$dni_emp','$clave_emp','$capac_emp')";
          echo "Su Usuario y Contraseña ha sido registrado con exito<br><br>";
-         
+
          $result = mysqli_query($link, $query) 
          or die ("<p><center> <b>Se ha encontrado un error</center></b></p>");
 
@@ -174,7 +181,7 @@ if (isset($_POST['insertar']))
          //Cargar la base de datos para insertar datos de registro completo
          require('config.php');
 
-         $query = "INSERT INTO empleados (cod_emple, nombre, apellido, clave, direccion, telefono, dni, fech_nac, nacionalidad, sexo, firma, salario, capacitado) 
+         $query = "INSERT INTO empleados (cod_emple, nombre, apellido, clave, direccion, telefono, dni, fech_nac, nacionalidad, sexo, firma, salario, cargo) 
          VALUES ('$cod_emp', '$nom_emp','$ape_emp', '$clave_emp','$dir_emp','$tel_emp','$dni_emp','$fech_emp','$nac_emp','$sexo_emp', '$firma_emp', '$salario_emp', '$capac_emp')";
 
         echo "Su Registro ha sido Exitoso";
@@ -304,7 +311,7 @@ else
 </P>
 
 
-<P><LABEL>Fecha de Nacimiento:</LABEL>
+<P><LABEL>Fecha de Nacimiento (Formato DD/MM/YYYY):</LABEL>
 <INPUT TYPE="TEXT" NAME="fech_emp"
 
 <?PHP
@@ -356,13 +363,12 @@ while($extraido=mysqli_fetch_array($result)){
 ?>
 </P>
 
-<P><LABEL>Capacitado?:</LABEL></P>
-<br><br>
-<input type="radio" name="capac_emp" id="si" value="Si">
-<label for="si">Si</label>
-<br> 
-<input type="radio" name="capac_emp" id="no" value="No">
-<label for="no">No</label>
+<P><LABEL>Puesto o Cargo en la Empresa:</LABEL></P>
+<select name="capac_emp">
+  <option value="Docente">Docente</option>
+  <option value="Empleado">Empleado</option>
+  <option value="Estudiante">Estudiante</option>
+</select>
 
 
 <P><INPUT TYPE="submit" NAME="insertar" VALUE="Completar Registro"></P>

@@ -2,6 +2,7 @@ README para proyecto planningcourses.
 Contiene archivo create y drop para la base de datos 
 Archivos CSS
 Archivos con Codigo PHP
+Proyecto con las directrices del ZEND Institute
 
 Enunciado del Problema:
 

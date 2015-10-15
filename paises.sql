@@ -4,7 +4,7 @@ CREATE TABLE `paises` (
   `PAI_ISO2` char(2) default NULL,
   `PAI_ISO3` char(3) default NULL,
   `nom_pais` varchar(80) default NULL,
-  PRIMARY KEY  (`PAI_PK`)
+  PRIMARY KEY  (`cod_pais`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=241 ;
 
 INSERT INTO `paises` VALUES (1, 4, 'AF', 'AFG', 'Afganistán');

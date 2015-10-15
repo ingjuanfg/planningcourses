@@ -20,7 +20,6 @@ $errores["nacionalidad"] = "";
 $errores["sexo"] = "";
 $errores["firma"] = "";
 $errores["salario"] = "";
-$errores["capacitado"] = "";
 
 $errores["puesto_docente"] = "";
 $error = false;
@@ -40,7 +39,7 @@ if (isset($_POST['insertar']))
     $sexo_emp = $_POST['sexo_emp'];
     $firma_emp = $_POST['firma_emp'];
     $salario_emp = $_POST['salario_emp'];
-    $capac_emp = $_POST['capac_emp'];
+    $capac_emp = $_POST['capac_emp'];  //Error al dar completar registro sin llenar ningun campo REVISAR
 
 
    // Comprobar errores
@@ -155,14 +154,6 @@ if (isset($_POST['insertar']))
          else
             $errores["salario"] = "";
       
-       //Capacitado
-       if (empty($capac_emp))
-            {
-               $errores["capacitado"] = "Se requiere saber si esta capacitado o no";
-               $error = true;
-            }
-            else
-               $errores["capacitado"] = "";
          }
 
 
@@ -170,14 +161,22 @@ if (isset($_POST['insertar']))
 	// Si los datos son correctos, procesar formulario
 	if (isset($_POST['insertar']) && $error==false)
 	{
-         //Cargar la base de datos
+         //Cargar la base de datos para insertar datos para Login
          require('config.php');
 
-         //Insertar datos a la tabla empleados
+         $query = "INSERT INTO usuarios(cod_usuario, contrasena, puesto) VALUES ('$dni_emp','$clave_emp','$capac_emp')";
+         echo "Su Usuario y Contraseña ha sido registrado con exito<br><br>";
+         
+         $result = mysqli_query($link, $query) 
+         or die ("<p><center> <b>Se ha encontrado un error</center></b></p>");
+
+
+         //Cargar la base de datos para insertar datos de registro completo
+         require('config.php');
 
          $query = "INSERT INTO empleados (cod_emple, nombre, apellido, clave, direccion, telefono, dni, fech_nac, nacionalidad, sexo, firma, salario, capacitado) 
          VALUES ('$cod_emp', '$nom_emp','$ape_emp', '$clave_emp','$dir_emp','$tel_emp','$dni_emp','$fech_emp','$nac_emp','$sexo_emp', '$firma_emp', '$salario_emp', '$capac_emp')";
-         echo "$query";
+
         echo "Su Registro ha sido Exitoso";
          
          $result = mysqli_query($link, $query) 
@@ -210,6 +209,19 @@ else
 ?>
 </P>
 
+<P><LABEL>DNI (Cedula):</LABEL>
+<INPUT TYPE="TEXT" NAME="dni_emp"
+
+<?PHP
+   if (isset($_POST['insertar']))
+      print (" VALUE='$dni_emp'>\n");
+   else
+      print (">\n");
+   if ($errores["dni"] != "")
+      print ("<BR><SPAN CLASS='error'>" . $errores["dni"] . "</SPAN>");
+?>
+</P>
+
 
 <P><LABEL>Nombres:</LABEL>
 <INPUT TYPE="TEXT" NAME="nom_emp"
@@ -235,6 +247,19 @@ else
       print (">\n");
    if ($errores["apellido"] != "")
       print ("<BR><SPAN CLASS='error'>" . $errores["apellido"] . "</SPAN>");
+?>
+</P>
+
+
+<P><LABEL>Firma (Nick):</LABEL>
+<INPUT TYPE="TEXT" NAME="firma_emp"
+<?PHP
+   if (isset($_POST['insertar']))
+      print (" VALUE='$firma_emp'>\n");
+   else
+      print (">\n");
+   if ($errores["firma"] != "")
+      print ("<BR><SPAN CLASS='error'>" . $errores["firma"] . "</SPAN>");
 ?>
 </P>
 
@@ -279,20 +304,6 @@ else
 </P>
 
 
-
-<P><LABEL>DNI (Cedula):</LABEL>
-<INPUT TYPE="TEXT" NAME="dni_emp"
-
-<?PHP
-   if (isset($_POST['insertar']))
-      print (" VALUE='$dni_emp'>\n");
-   else
-      print (">\n");
-   if ($errores["dni"] != "")
-      print ("<BR><SPAN CLASS='error'>" . $errores["dni"] . "</SPAN>");
-?>
-</P>
-
 <P><LABEL>Fecha de Nacimiento:</LABEL>
 <INPUT TYPE="TEXT" NAME="fech_emp"
 
@@ -324,34 +335,14 @@ while($extraido=mysqli_fetch_array($result)){
 </P>
 
 
-<P><LABEL>Genero:</LABEL>
+<P><LABEL>Genero:</LABEL></P>
 
 <select name="sexo_emp">
   <option value="Masculino">Masculino</option>
   <option value="Femenino">Femenino</option>
   <option value="Otro">Otro</option>
-<?PHP
-   if (isset($_POST['insertar']))
-      print (" VALUE='$sexo_emp'>\n");
-   else
-      print (">\n");
-   if ($errores["sexo"] != "")
-      print ("<BR><SPAN CLASS='error'>" . $errores["sexo"] . "</SPAN>");
-?>
 </select>
-</P>
 
-<P><LABEL>Firma (Nick):</LABEL>
-<INPUT TYPE="TEXT" NAME="firma_emp"
-<?PHP
-   if (isset($_POST['insertar']))
-      print (" VALUE='$firma_emp'>\n");
-   else
-      print (">\n");
-   if ($errores["firma"] != "")
-      print ("<BR><SPAN CLASS='error'>" . $errores["firma"] . "</SPAN>");
-?>
-</P>
 
 <P><LABEL>Salario:</LABEL>
 <INPUT TYPE="TEXT" NAME="salario_emp"
@@ -365,22 +356,14 @@ while($extraido=mysqli_fetch_array($result)){
 ?>
 </P>
 
-<P><LABEL>Capacitado?:</LABEL>
+<P><LABEL>Capacitado?:</LABEL></P>
 <br><br>
 <input type="radio" name="capac_emp" id="si" value="Si">
 <label for="si">Si</label>
 <br> 
 <input type="radio" name="capac_emp" id="no" value="No">
 <label for="no">No</label>
-<?PHP
-   if (isset($_POST['insertar']))
-      print (" VALUE='$capac_emp'>\n");
-   else
-      //print (">\n");
-   if ($errores["capacitado"] != "")
-      print ("<BR><SPAN CLASS='error'>" . $errores["capacitado"] . "</SPAN>");
-?>
-</P>
+
 
 <P><INPUT TYPE="submit" NAME="insertar" VALUE="Completar Registro"></P>
 

@@ -1,13 +1,23 @@
+<?PHP
+   session_start ();
+?>
 <HTML LANG="es">
 
 <HEAD>
    <TITLE>Registro de Cursos</TITLE>
+   <meta name="keywords" content="">
+   <meta name="description" content="">
+   <link rel="stylesheet" type="text/css" href="css/default.css">
+   <script type="text/javascript" src="css/menu.js"></script>
    <LINK REL="stylesheet" TYPE="text/css" HREF="estilo.css">
 </HEAD>
 
 <BODY>
 
 <?PHP
+if (isset($_SESSION["usuario_valido"]))
+{
+require('menu.php');
 $errores["cod_curso"] = "";
 $errores["nom_curso"] = "";
 $errores["desc_curso"] = "";
@@ -106,7 +116,7 @@ if (isset($_POST['insertar']))
 
          //Insertar datos a la tabla cursos
 
-         $query = "INSERT INTO cursos (cod_curso, nom_curso, desc_curso, num_horas, costo_curso, prerequisito) VALUES ('$cod_curso', '$nom_curso','$desc_curso', '$num_horas','$costo_curso','$prerequisito')";
+         $query = "INSERT INTO cursos (cod_curso, nom_curso, desc_curso, num_horas, costo_curso, prerequisito, hora_curso) VALUES ('$cod_curso', '$nom_curso','$desc_curso', '$num_horas','$costo_curso','$prerequisito', '$horario')";
 
         echo "El Registro del Curso ha sido Exitoso";
          
@@ -238,6 +248,13 @@ while($extraido=mysqli_fetch_array($result)){
 
 <?PHP
    }
+?>
+<?php
+}
+else
+{
+require('pie_pagina.php');
+}
 ?>
 </BODY>
 </HTML>

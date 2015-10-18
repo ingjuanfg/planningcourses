@@ -1,11 +1,21 @@
+<?PHP
+   session_start ();
+?>
 <HTML LANG="es">
 <HEAD>
    <TITLE>Edicion de Cursos</TITLE>
+   <meta name="keywords" content="">
+   <meta name="description" content="">
+   <link rel="stylesheet" type="text/css" href="css/default.css">
+   <script type="text/javascript" src="css/menu.js"></script>
    <LINK REL="stylesheet" TYPE="text/css" HREF="estilo.css">
 </HEAD>
 <BODY>
 
 <?PHP
+if (isset($_SESSION["usuario_valido"]))
+{
+require('menu.php');
 
 if (isset($_POST['insertar']))
 {
@@ -105,6 +115,13 @@ while($extraido=mysqli_fetch_array($result)){
 </FORM>
 
 <?PHP
+}
+?>
+<?php
+}
+else
+{
+require('pie_pagina.php');
 }
 ?>
 </BODY>

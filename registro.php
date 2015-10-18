@@ -1,6 +1,3 @@
-<?PHP
-   session_start ();
-?>
 <HTML LANG="es">
 
 <HEAD>
@@ -15,9 +12,6 @@
 <BODY>
 
 <?PHP
-if (isset($_SESSION["usuario_valido"]))
-{
-require('menu.php');
 $errores["cod_emple"] = "";
 $errores["nombre"] = "";
 $errores["apellido"] = "";
@@ -198,9 +192,9 @@ if (isset($_POST['insertar']))
          
          $result = mysqli_query($link, $query) 
          or die ("<p><center> <b>No se pudo insertar la informacion</center></b></p><br>
-         <A HREF 'empleados.php'>Volver</A>");
+         <A HREF 'registo.php'>Volver</A>");
 
-         echo ("<P>[ <A HREF='empleados.php'> Registrar otro Empleado</A> ]</P>\n");
+         echo ("<P>[ <A HREF='login.php'> Regresar al Login</A> ]</P>\n");
     }
 else
 {
@@ -210,7 +204,7 @@ else
 
 <P>Introduzca sus datos de registro:</P>
 
-<FORM CLASS="borde" ACTION="empleados.php" METHOD="POST">
+<FORM CLASS="borde" ACTION="registro.php" METHOD="POST">
 
 
 <P><LABEL>Codigo de Empleado:</LABEL>
@@ -387,13 +381,6 @@ while($extraido=mysqli_fetch_array($result)){
 
 <?PHP
    }
-?>
-<?php
-}
-else
-{
-require('pie_pagina.php');
-}
 ?>
 </BODY>
 </HTML>

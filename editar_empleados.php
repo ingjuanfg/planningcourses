@@ -1,11 +1,21 @@
+<?PHP
+   session_start ();
+?>
 <HTML LANG="es">
 <HEAD>
    <TITLE>Edicion de Empleados</TITLE>
+   <meta name="keywords" content="">
+   <meta name="description" content="">
+   <link rel="stylesheet" type="text/css" href="css/default.css">
+   <script type="text/javascript" src="css/menu.js"></script>
    <LINK REL="stylesheet" TYPE="text/css" HREF="estilo.css">
 </HEAD>
 <BODY>
 
 <?PHP
+if (isset($_SESSION["usuario_valido"]))
+{
+require('menu.php');
 
 if (isset($_POST['insertar']))
 {
@@ -22,8 +32,16 @@ if (isset($_POST['insertar']))
 	$sexo=$_POST["sexo"];
 	$firma=$_POST["firma"];
 	$salario=$_POST["salario"];
-	$capacitado=$_POST["capacitado"];
+	$cargo=$_POST["cargo"];
 	//Cargar Bases de Datos
+
+		require('config.php');
+		$query = "UPDATE usuarios SET contrasena = '$clave', puesto = '$cargo' WHERE cod_usuario = $cod_emple";
+		mysqli_query($link, $query) or die 
+			
+		("<P><center><b>No se pudo actualizar información del Empleado en la Tabla Usuario</b><br>
+		<A HREF='editar_empleados.php'>Volver</A> 		</center></P>");
+
 
 		require('config.php');
 		
@@ -41,17 +59,18 @@ if (isset($_POST['insertar']))
          echo ("   <LI>Sexo: $sexo\n");
          echo ("   <LI>Firma: $firma\n");
          echo ("   <LI>Salario: $salario\n");
-         echo ("   <LI>Capacitado?: $capacitado\n");
+         echo ("   <LI>Puesto: $cargo\n");
          echo ("</UL>\n");
 
 		 
 		 //Insertar datos a la Tabla de Empleados
 		 
-		 $query = "UPDATE empleados SET firma = '$firma', salario = '$salario', clave = '$clave', direccion = '$direccion', telefono = '$telefono', capacitado = '$capacitado' WHERE cod_emple = $cod_emple";
+		 $query = "UPDATE empleados SET firma = '$firma', salario = '$salario', clave = '$clave', direccion = '$direccion', telefono = '$telefono', cargo = '$cargo' WHERE cod_emple = $cod_emple";
 		 mysqli_query($link, $query) or die 
 			
 			("<P><center><b>No se pudo actualizar información del Empleado</b><br>
 			<A HREF='editar_empleados.php'>Volver</A> 		</center></P>");
+
 
 		 echo ("Los Datos fueron modificados con Exito en la Base de Datos");
 
@@ -132,19 +151,25 @@ value="<?php echo $extraido['direccion'] ?>">
 value="<?php echo $extraido['telefono'] ?>">
 </P>
 
-<P><LABEL>Capacitado?:</LABEL></P>
-<br><br>
-<input type="radio" name="capacitado" id="si" value="Si">
-<label for="si">Si</label>
-<br> 
-<input type="radio" name="capacitado" id="no" value="No">
-<label for="no">No</label>
+<P><LABEL>Puesto o Cargo en la Empresa:</LABEL></P>
+<select name="cargo">
+  <option value="Docente">Docente</option>
+  <option value="Empleado">Empleado</option>
+  <option value="Estudiante">Estudiante</option>
+</select>
 
 <P><INPUT TYPE="submit" NAME="insertar" VALUE="Modificar Informacion del Empleado"></P>
 
 </FORM>
 
 <?PHP
+}
+?>
+<?php
+}
+else
+{
+require('pie_pagina.php');
 }
 ?>
 </BODY>

@@ -1,13 +1,22 @@
+<?PHP
+   session_start ();
+?>
 <HTML LANG="es">
 
 <HEAD>
    <TITLE>Registro de Lugares para Cursos</TITLE>
+   <meta name="keywords" content="">
+   <meta name="description" content="">
+   <link rel="stylesheet" type="text/css" href="css/default.css">
+   <script type="text/javascript" src="css/menu.js"></script>
    <LINK REL="stylesheet" TYPE="text/css" HREF="estilo.css">
 </HEAD>
 
 <BODY>
-
 <?PHP
+if (isset($_SESSION["usuario_valido"]))
+{
+require('menu.php');
 $errores["lugar"] = "";
 $errores["fecha"] = "";
 $errores["horario"] = "";
@@ -70,8 +79,8 @@ if (isset($_POST['insertar']))
 else
 {
 ?>
-
-<H1>REGISTRO DE HORARIOS DISPOBLES  PARA CURSOS</H1>
+<br><br>
+<H1>REGISTRO DE HORARIOS DISPONIBLES PARA CURSOS</H1>
 
 <P>Introduzca la Informacion del horario:</P>
 
@@ -119,6 +128,13 @@ else
 
 <?PHP
    }
+?>
+<?php
+}
+else
+{
+require('pie_pagina.php');
+}
 ?>
 </BODY>
 </HTML>

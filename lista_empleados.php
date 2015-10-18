@@ -1,7 +1,14 @@
+<?PHP
+   session_start ();
+?>
 <html>
 <head>
 	<title>Lista de Empleados</title>
-  <LINK REL="stylesheet" TYPE="text/css" HREF="estilo.css">
+   <meta name="keywords" content="">
+   <meta name="description" content="">
+   <link rel="stylesheet" type="text/css" href="css/default.css">
+   <script type="text/javascript" src="css/menu.js"></script>
+   <LINK REL="stylesheet" TYPE="text/css" HREF="estilo.css">
 </head>
 <script language="JavaScript" type="text/javascript"> 
 
@@ -14,7 +21,10 @@ function confirmBorrar(cod_emple)
 </script>
 
 <body>
-<?php
+<?PHP
+if (isset($_SESSION["usuario_valido"]))
+{
+require('menu.php');
 //Conexion al servidor y base de datos
 require('config.php');
 
@@ -46,6 +56,13 @@ while($extraido= mysqli_fetch_array($resultado))
 	</td>
 </tr>
 <?php 
+}
+?>
+<?php
+}
+else
+{
+require('pie_pagina.php');
 }
 ?>
 </table>

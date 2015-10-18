@@ -1,10 +1,18 @@
 README para proyecto planningcourses.
-Contiene archivo create y drop para la base de datos 
-Archivos CSS
-Archivos con Codigo PHP
-Proyecto con las directrices del ZEND Institute
+Proyecto en version estable. Contiene SQL para la Base de Datos. Imagenes y CSS para que no se vea tan plano.
 
-Enunciado del Problema:
+Para ver este proyecto online ingresar a:
+
+http://juanfernandez.freevar.com/login.php
+
+Y crear un usuario o ingresa con:
+Usuario: 1010
+Contraseña: 1010
+Cargo: Docente
+
+Nota: Solo resta la funcionalidad de Dictar Curso e Inscribirse (Botones en la vista de Lista_cursos)
+
+ENUNCIADO DEL PROBLEMA:
 
 El departamento de formación de una empresa desea construir una BD para planificar y gestionar la formación de sus empleados. Los supuestos semánticos que deben recogerse son los siguientes: 
 
@@ -19,3 +27,5 @@ Los cursos se imparten por personal de la propia empresa.
 De los empleados se desea almacenar su código de empleado, nombre y apellidos, dirección, teléfono, DNI, fecha de nacimiento, nacionalidad, sexo, firma y salario, así como si está o no capacitado para impartir cursos.
 
 Un mismo empleado puede ser docente en una edición de un curso y alumno en otra edición, pero nunca puede ser ambas cosas a la vez (en una misma edición de un curso o lo imparte o lo recibe).
+
+Juan de Jesús Fernández Graciano
